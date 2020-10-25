@@ -1,0 +1,15 @@
+.name {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border-bottom: 2px solid black;  
+}
+
+.name-error {
+  color: red;
+  border-bottom: 2px solid red;
+}
+
+.hint-error {
+  color: red;
+}

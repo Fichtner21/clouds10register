@@ -11,7 +11,5 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient, private router: Router) { }
 
-  public registerUser(user: AuthUser): Promise<unknown> {
-    return this.httpClient.post(AuthService.URL + '/register', user).toPromise();
-  }
+  
 }
