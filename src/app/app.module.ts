@@ -8,6 +8,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
+import { NgxMaskModule, IConfig } from 'ngx-mask'
+
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
+
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
 
 @NgModule({
   declarations: [
@@ -20,7 +27,8 @@ import { HomeComponent } from './home/home.component';
     AppRoutingModule,
     HttpClientModule ,
     ReactiveFormsModule,
-    FormsModule   
+    FormsModule,
+    NgxMaskModule.forRoot(maskConfig),  
   ],
   providers: [],
   bootstrap: [AppComponent]

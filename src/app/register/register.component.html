@@ -12,6 +12,44 @@
     </label>
     <div class="hint-error">{{ nameMessage$ | async }}</div>
   </div>
+  <div>
+    <label>
+      <span>Mobile</span>
+      <select
+          formControlName="prefixes"
+      >
+        <option *ngFor="let prefix of prefixes" [ngValue]="prefix">
+          {{ prefix.code }}
+        </option>        
+      </select>
+    </label>  
+    <label>
+      <input
+          type="text"
+          formControlName="phoneUser"
+          [ngClass]="{'name-error': formGroup.controls.phoneUser.invalid && formGroup.controls.phoneUser.dirty}"
+          class="name"
+          mask="000 000 000"          
+      />
+    </label> 
+    <div class="hint-error">{{ phoneMessage$ | async }}</div>  
+  </div>
+  <div>
+    <label>
+      <span>Can you play chess?</span>
+      <input 
+          type="radio" 
+          value="Yes" 
+          formControlName="chessUser"
+      />Yes
+      <input 
+          type="radio" 
+          value="No" 
+          formControlName="chessUser"
+      />No
+    </label>
+    <div>{{ chessMessage$ | async }}</div>
+  </div>
   <button
       type="submit"
       [disabled]="buttonDisabled$ | async"
