@@ -47,7 +47,7 @@ export class RegisterComponent implements OnInit {
 
   public formGroup = new FormGroup({
     nameUser: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    prefixes: new FormControl(this.prefixes[0], [Validators.required]), 
+    prefixes: new FormControl('', [Validators.required]), 
     phoneUser: new FormControl('', [Validators.minLength(9), Validators.maxLength(9), Validators.required]), 
     chessUser: new FormControl('',[Validators.required]), 
     authForm: new FormGroup({
@@ -83,6 +83,18 @@ export class RegisterComponent implements OnInit {
     }),
   );
 
+  public prefixMessage$ = this.formGroup.valueChanges.pipe(
+    map((value) => {
+      const prefixErrors = this.formGroup.controls.prefixes?.errors;
+      if(prefixErrors){
+        if(prefixErrors?.required){
+          return "This field is required";
+        }
+      }
+      return '';
+    })
+  )
+
   public phoneMessage$ = this.formGroup.valueChanges.pipe(
     map((value) => {
       const phoneErrors = this.formGroup.controls.phoneUser?.errors;
@@ -91,6 +103,9 @@ export class RegisterComponent implements OnInit {
           return "This field is required";
         }
         if(phoneErrors?.minLength){
+          return 'Please provide nine numbers';
+        }
+        if(phoneErrors?.maxLength){
           return 'Please provide nine numbers';
         }
       }

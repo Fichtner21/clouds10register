@@ -1,15 +1,166 @@
-.name {
-  border: 0;
-  outline: 0;
-  background: transparent;
-  border-bottom: 2px solid black;  
+body {
+  margin: 0!important;
+  padding: 0;
 }
 
+@mixin labelStyle {
+  font-size: 11px;
+  line-height: 28px;
+  color: #333;
+  padding-left: 15px;
+}
+
+.register {
+  background-color: #242424;
+  width: 100%;
+  height: 100vh;
+  position: relative; 
+  z-index: 1; 
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+
+  &:before {
+    /* gredient */
+    content: '';
+    position: absolute;
+    width: 660.86px;
+    height: 616.33px;
+    left: 0;
+    top: 0;
+    background-image:url('../../assets/gredient.svg');
+    box-shadow: 0px 20px 25px rgba(32, 31, 54, 0.05);
+  }
+
+  &__popup {    
+    width: 728px;
+    height: 552px;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    position: absolute;
+    display: flex;
+    background: #242424;
+
+    &__left {
+      background-image: url('../../assets/lines.png');
+      position: relative;
+      width: 256px;
+      height: 100%;      
+
+      &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-image: url('../../assets/lines.svg');
+        height: 100%;
+        width: 100%;
+        background-repeat: round;
+      }
+    }
+
+    &__box {
+      background: linear-gradient(5.88deg, rgba(165, 165, 180, 0.15) 4.19%, rgba(228, 235, 239, 0.15) 95.81%, rgba(231, 232, 238, 0.15) 95.81%, rgba(231, 232, 238, 0.15) 95.81%), #FCFCFD;
+      position: relative;
+      padding: 42px 50px;
+      flex: 1;
+
+      h2 {
+        position: absolute;
+        top: -80px;
+        left: 30px;
+        font-size: 48px;
+        color: #fff;
+        font-weight: 300;
+      }
+
+      h3 {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 24px;
+        color: #202020;
+        padding-right: 60px;
+        margin-bottom: 40px;
+      }
+
+      &__nameuser {
+        margin-bottom: 15px;
+        overflow: hidden;
+
+        &__label {
+          @include labelStyle;
+        }
+
+        &__name {
+          width: 370px;
+          border: 0;
+          outline: 0;
+          background: transparent;
+          border-bottom: 2px solid #DADAED; 
+          padding-left:15px;
+          margin-right:15px; 
+          font-size: 16px;
+          line-height: 28px;
+          color: #202020;         
+        }
+      }
+
+      &__mobile {
+        margin-bottom: 15px;
+        &__label {
+          @include labelStyle;
+        }
+
+        select {
+          appearance: none;
+          background: transparent;
+          background-image: url('../../assets/dropdown_arrow.svg');
+          background-repeat: no-repeat;
+          background-position-x: 90%;
+          background-position-y: 12px;
+          border-bottom: 2px solid #DADAED;
+          line-height: 28px;
+          padding-left: 15px;
+          outline: 0;
+          border-top: 0;
+          border-left: 0;
+          border-right: 0;
+          width: 114px;
+          font-size: 16px;
+          margin-right: 15px;
+          padding-right:15px;
+        }
+
+        &__phone {
+          width: 240px;
+          border: 0;
+          outline: 0;
+          background: transparent;
+          border-bottom: 2px solid #DADAED; 
+          padding-left:15px;
+          margin-right:15px; 
+          font-size: 16px;
+          line-height: 28px;
+          color: #202020; 
+        }
+      }
+    }
+  }  
+}
+
+
 .name-error {
-  color: red;
-  border-bottom: 2px solid red;
+  color: #eb5757;
+  border-bottom: 2px solid #eb5757;
 }
 
 .hint-error {
-  color: red;
+  color: #eb5757;
+  font-size: 11px;
+  padding: 5px 0 0 15px;  
+  display: flex;
+
+  .hint-error-phone {
+    margin-left: 120px;
+  }
 }
+

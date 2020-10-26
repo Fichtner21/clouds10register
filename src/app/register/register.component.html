@@ -1,63 +1,73 @@
-<div>Provide personal information so that we can create a new account for you.</div>
-<form [formGroup]="formGroup" (ngSubmit)="onSubmit($event)">
-  <div>
-    <label>
-      <span>Your Name</span>
-      <input
-          type="text"
-          formControlName="nameUser"
-          [ngClass]="{'name-error': formGroup.controls.nameUser.invalid && formGroup.controls.nameUser.dirty}"
-          class="name"
-      />
-    </label>
-    <div class="hint-error">{{ nameMessage$ | async }}</div>
+<div class="register">  
+  <div class="register__popup">
+    <div class="register__popup__left"></div>
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit($event)" class="register__popup__box">
+    <h2>Your account</h2>
+    <h3>Provide personal information so that we can create a new account for you.</h3>
+    <div class="register__popup__box__nameuser">
+      <label>
+        <div class="register__popup__box__nameuser__label">Your Name</div>
+        <input
+            type="text"
+            formControlName="nameUser"
+            [ngClass]="{'name-error': formGroup.controls.nameUser.invalid && formGroup.controls.nameUser.dirty}"
+            class="register__popup__box__nameuser__name"
+        />
+      </label>
+      <div class="hint-error">{{ nameMessage$ | async }}</div>
+    </div>
+    <div class="register__popup__box__mobile">
+      <label>
+        <div class="register__popup__box__mobile__label">Mobile</div>
+        <select
+            formControlName="prefixes"
+        >
+          <option *ngFor="let prefix of prefixes" [ngValue]="prefix">
+            {{ prefix.code }}
+          </option>        
+        </select>
+         
+      </label>  
+      <label>
+        <input
+            type="text"
+            formControlName="phoneUser"
+            [ngClass]="{'name-error': formGroup.controls.phoneUser.invalid && formGroup.controls.phoneUser.dirty}"
+            class="register__popup__box__mobile__phone"
+            mask="000 000 000"          
+        />
+      </label> 
+      <div class="hint-error">
+        <div class="">{{ prefixMessage$ | async }} </div>
+        <div class="hint-error-phone">{{ phoneMessage$ | async }} </div>
+      </div> 
+    </div>
+    <div>
+      <label>
+        <span>Can you play chess?</span>
+        <input 
+            type="radio" 
+            value="Yes" 
+            formControlName="chessUser"
+        />Yes
+        <input 
+            type="radio" 
+            value="No" 
+            formControlName="chessUser"
+        />No
+      </label>
+      <div>{{ chessMessage$ | async }}</div>
+    </div>
+    <div formGroupName="authForm">
+      <input formControlName="day" maxlength="2" placeholder="DD" type="text" />
+      <input formControlName="month" maxlength="2" placeholder="MM" type="text" />
+      <input formControlName="year" maxlength="4" placeholder="YYYY" type="text" />    
+    </div>
+    <div>{{ minAge$ | async }}</div>  
+    <button
+        type="submit"
+        [disabled]="buttonDisabled$ | async"
+    >Continue</button>
+    </form>
   </div>
-  <div>
-    <label>
-      <span>Mobile</span>
-      <select
-          formControlName="prefixes"
-      >
-        <option *ngFor="let prefix of prefixes" [ngValue]="prefix">
-          {{ prefix.code }}
-        </option>        
-      </select>
-    </label>  
-    <label>
-      <input
-          type="text"
-          formControlName="phoneUser"
-          [ngClass]="{'name-error': formGroup.controls.phoneUser.invalid && formGroup.controls.phoneUser.dirty}"
-          class="name"
-          mask="000 000 000"          
-      />
-    </label> 
-    <div class="hint-error">{{ phoneMessage$ | async }}</div>  
-  </div>
-  <div>
-    <label>
-      <span>Can you play chess?</span>
-      <input 
-          type="radio" 
-          value="Yes" 
-          formControlName="chessUser"
-      />Yes
-      <input 
-          type="radio" 
-          value="No" 
-          formControlName="chessUser"
-      />No
-    </label>
-    <div>{{ chessMessage$ | async }}</div>
-  </div>
-  <div formGroupName="authForm">
-    <input formControlName="day" maxlength="2" placeholder="DD" type="text" />
-    <input formControlName="month" maxlength="2" placeholder="MM" type="text" />
-    <input formControlName="year" maxlength="4" placeholder="YYYY" type="text" />    
-  </div>
-  <div>{{ minAge$ | async }}</div>  
-  <button
-      type="submit"
-      [disabled]="buttonDisabled$ | async"
-  >Continue</button>
-</form>
+</div>
