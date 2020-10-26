@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthUser } from '../model/auth-user.interface';
 import { AuthService } from '../auth.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormBuilder, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map, startWith } from 'rxjs/operators';
-import { NgxMaskModule, IConfig } from 'ngx-mask'
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-register',
@@ -18,14 +19,50 @@ export class RegisterComponent implements OnInit {
   ];
 
   public mobNumberPattern = "^((\\+91-?)|0)?[0-9]{10}$";
+  
+  public minimumAge(age: number): ValidatorFn {
+    return (fg: FormGroup): ValidationErrors => {
+      let result: ValidationErrors = null;
+      if (fg.get('year').valid && fg.get('month').valid && fg.get('day').valid) {
+        // carefull, moment months range is from 0 to 11
+        const value: { year: string, month: string, day: string } = fg.value;
+        const date = moment({ year: +value.year, month: (+value.month) - 1, day: +value.day }).startOf('day');
+        if (date.isValid()) {
+          // https://momentjs.com/docs/#/displaying/difference/
+          const now = moment().startOf('day');
+          const yearsDiff = date.diff(now, 'years');
+          if (yearsDiff > -age) {
+            result = {
+              'minimumAge': {
+                'requiredAge': age,
+                'actualAge': yearsDiff
+              }
+            };
+          }
+        }
+      }
+      return result;
+    };
+  }
 
   public formGroup = new FormGroup({
     nameUser: new FormControl('', [Validators.required, Validators.minLength(3)]),
     prefixes: new FormControl(this.prefixes[0], [Validators.required]), 
     phoneUser: new FormControl('', [Validators.minLength(9), Validators.maxLength(9), Validators.required]), 
-    chessUser: new FormControl('',[Validators.required]),  
-  });
-
+    chessUser: new FormControl('',[Validators.required]), 
+    authForm: new FormGroup({
+      year: new FormControl('',[Validators.required, Validators.maxLength(4), Validators.minLength(4)]),
+      month: new FormControl('', [Validators.required, Validators.maxLength(2)]),
+      day: new FormControl('', [Validators.required, Validators.maxLength(2)]),
+    }),       
+  }); 
+  
+  public minAge$ = this.formGroup.valueChanges.pipe(
+    map((value) => {      
+      const dateBirth = this.formGroup.controls['authForm'].setValidators(this.minimumAge(18));          
+    })
+  )
+  
   public buttonDisabled$ = this.formGroup.statusChanges.pipe(
     map((status) => status === 'INVALID'),
     startWith(true),
@@ -71,16 +108,16 @@ export class RegisterComponent implements OnInit {
       }
       return '';
     })
-  )
+  )  
 
-  constructor(){}
- 
+  constructor(){} 
 
   public ngOnInit(): void {
     const valueChanges$ = this.formGroup.valueChanges;
     const statusChanges$ = this.formGroup.statusChanges;
-
-    statusChanges$.subscribe((status) => {});
+    
+    //statusChanges$.subscribe((status) => {console.log(status)});
+    //valueChanges$.subscribe((value) => {console.log(value)});
   }
 
   public onSubmit($event){

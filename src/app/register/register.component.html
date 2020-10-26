@@ -50,6 +50,12 @@
     </label>
     <div>{{ chessMessage$ | async }}</div>
   </div>
+  <div formGroupName="authForm">
+    <input formControlName="day" maxlength="2" placeholder="DD" type="text" />
+    <input formControlName="month" maxlength="2" placeholder="MM" type="text" />
+    <input formControlName="year" maxlength="4" placeholder="YYYY" type="text" />    
+  </div>
+  <div>{{ minAge$ | async }}</div>  
   <button
       type="submit"
       [disabled]="buttonDisabled$ | async"
