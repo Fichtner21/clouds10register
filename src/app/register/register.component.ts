@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthUser } from '../model/auth-user.interface';
-import { AuthService } from '../auth.service';
-import { FormControl, FormGroup, Validators, FormBuilder, ValidatorFn, ValidationErrors } from '@angular/forms';
+import { FormControl, FormGroup, Validators, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map, startWith } from 'rxjs/operators';
-import { NgxMaskModule, IConfig } from 'ngx-mask';
 import * as moment from 'moment';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-register',
@@ -46,14 +44,14 @@ export class RegisterComponent implements OnInit {
   }
 
   public formGroup = new FormGroup({
-    nameUser: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    nameUser: new FormControl('aaa', [Validators.required, Validators.minLength(3)]),
     prefixes: new FormControl('', [Validators.required]), 
-    phoneUser: new FormControl('', [Validators.minLength(9), Validators.maxLength(9), Validators.required]), 
-    chessUser: new FormControl('',[Validators.required]), 
+    phoneUser: new FormControl('123123123', [Validators.minLength(9), Validators.maxLength(9), Validators.required]), 
+    chessUser: new FormControl('Yes',[Validators.required]), 
     authForm: new FormGroup({
-      year: new FormControl('',[Validators.required, Validators.maxLength(4), Validators.minLength(4)]),
-      month: new FormControl('', [Validators.required, Validators.maxLength(2)]),
-      day: new FormControl('', [Validators.required, Validators.maxLength(2)]),
+      year: new FormControl('2000',[Validators.required, Validators.maxLength(4), Validators.minLength(4)]),
+      month: new FormControl('12', [Validators.required, Validators.maxLength(2)]),
+      day: new FormControl('12', [Validators.required, Validators.maxLength(2)]),
     }),       
   });   
   
@@ -121,43 +119,38 @@ export class RegisterComponent implements OnInit {
 
   public minAge$ = this.formGroup.valueChanges.pipe(
     map((value) => {      
-      const dateBirth = this.formGroup.controls['authForm'].setValidators(this.minimumAge(18));      
-    })
-  );
-
-  public permitAge$ = this.formGroup.valueChanges.pipe(
-    map((value) => {
-      const dateErrors = this.formGroup.controls['authForm']['day']?.errors;      
+      const dateBirth = this.formGroup.controls['authForm'].setValidators(this.minimumAge(18));
+      const dateErrors = this.formGroup.controls['authForm']?.errors;
       if(dateErrors){
         if(dateErrors?.required){
           return "This field is required";
         }
-        if(dateErrors?.minimumAge){
-          return "You have to over 18 years old";
-        }
       }          
       return '';
     })
-  )
+  );
+
   
-  constructor(){} 
+  
+  constructor(private router: Router, private authService: AuthService){} 
 
   public ngOnInit(): void {
     const valueChanges$ = this.formGroup.valueChanges;
     const statusChanges$ = this.formGroup.statusChanges;
     
     //statusChanges$.subscribe((status) => {console.log(status)});
-    //valueChanges$.subscribe((value) => {console.log(value)});    
-  
-  }
-  
+    //valueChanges$.subscribe((value) => {console.log(value)});     
+  }    
 
   public onSubmit($event){
     if(this.formGroup.valid){
-      console.log('Form is valid');
-      console.log(this.formGroup.value);
+      console.log('Form is valid!');
+      //console.log(this.formGroup.value);
+      // const req = await this.authService.registerUser(this.formGroup.value);
+      // console.log(req);
+      this.router.navigate(['completed'], {state: {form: this.formGroup.value}});
     } else {
-      console.log('Form is invalid');      
+      console.log('Form is invalid');          
     }
   }
 }

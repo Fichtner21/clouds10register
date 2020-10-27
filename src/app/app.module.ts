@@ -8,7 +8,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
-import { NgxMaskModule, IConfig } from 'ngx-mask'
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { CompletedComponent } from './completed/completed.component'
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -20,7 +21,8 @@ const maskConfig: Partial<IConfig> = {
   declarations: [
     AppComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    CompletedComponent
   ],
   imports: [
     BrowserModule,

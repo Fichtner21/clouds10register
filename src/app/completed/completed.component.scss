@@ -1,0 +1,139 @@
+body {
+  margin: 0!important;
+  padding: 0;
+}
+
+@mixin labelStyle {
+  font-size: 11px;
+  line-height: 28px;
+  color: #333;
+  padding-left: 15px;
+}
+
+.register {
+  background-color: #242424;
+  width: 100%;
+  height: 100vh;
+  position: relative; 
+  z-index: 1; 
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  overflow: hidden;
+
+  &:before {
+    /* gredient */
+    content: '';
+    position: absolute;
+    width: 660.86px;
+    height: 616.33px;
+    left: 0;
+    top: 0;
+    background-image:url('../../assets/gredient.svg');
+    box-shadow: 0px 20px 25px rgba(32, 31, 54, 0.05);
+  }
+
+  &__popup {    
+    width: 728px;
+    height: 552px;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    position: absolute;
+    display: flex;
+    background: #242424;
+
+    @media screen and (max-width: 992px){
+      width: 290px;
+      height: 515px;
+    }
+    &__steps {
+      position: absolute;
+      right: -25px;
+      top: 110px;
+      width: 25px;
+
+      @media screen and (max-width: 992px){
+        display: none;
+      }
+
+      &__step {
+        height: 110px;
+        border-top: 2px solid #F9F9FB;
+        font-size: 11px;
+        color: #fff;
+        padding-left: 10px;
+        padding-top: 7px;
+      }
+
+      .active-step {
+        border-color: #1BFEC0;
+      }
+    }
+
+    &__left {
+      background-image: url('../../assets/lines.png');
+      position: relative;
+      width: 256px;
+      height: 100%;
+      
+      @media screen and (max-width: 992px){
+        display: none;
+      }
+
+      &:before {
+        content: '';
+        position: absolute;
+        left: 10px;
+        top: 0;
+        background-image: url('../../assets/lines.svg');
+        height: 100%;
+        width: 100%;
+        background-repeat: round;
+      }
+    }
+
+    &__box {
+      background: linear-gradient(5.88deg, rgba(165, 165, 180, 0.15) 4.19%, rgba(228, 235, 239, 0.15) 95.81%, rgba(231, 232, 238, 0.15) 95.81%, rgba(231, 232, 238, 0.15) 95.81%), #FCFCFD;
+      position: relative;
+      padding: 42px 50px;
+      flex: 1;
+
+      @media screen and (max-width: 992px){
+        padding: 10px;
+        width: 270px;
+      }
+
+      h2 {
+        position: absolute;
+        top: -70px;
+        left: 30px;
+        font-size: 48px;
+        color: #fff;
+        font-weight: 300;
+
+        @media screen and (max-width: 992px){
+          font-size: 36px;
+          margin-left: auto;
+          margin-right: auto;
+          left: 30px;
+          right: 0;
+        }
+      }
+
+      h3 {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 24px;
+        color: #202020;
+        padding-right: 60px;
+        margin-bottom: 40px;
+
+        @media screen and (max-width: 992px){
+          padding-right: 0px;   
+          margin-bottom: 10px;       
+        }
+      }     
+    }
+  }  
+}
+
+

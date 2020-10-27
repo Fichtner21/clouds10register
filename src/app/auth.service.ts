@@ -11,5 +11,7 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient, private router: Router) { }
 
-  
+  // public registerUser(formGroup: AuthUser): Promise<unknown> {
+  //   return this.httpClient.post(AuthService + '/completed', formGroup).toPromise();
+  // }
 }

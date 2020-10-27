@@ -70,7 +70,7 @@
                 formControlName="day" 
                 maxlength="2" 
                 placeholder="DD" 
-                type="number"
+                type="text"
                 class="register__popup__box__date__units__day" 
             />
             <div class="register__popup__box__date__units__pause"></div>
@@ -78,7 +78,7 @@
                 formControlName="month" 
                 maxlength="2" 
                 placeholder="MM" 
-                type="number"
+                type="text"
                 class="register__popup__box__date__units__month" 
             />
             <div class="register__popup__box__date__units__pause"></div>
@@ -86,15 +86,13 @@
                 formControlName="year" 
                 maxlength="4" 
                 placeholder="YYYY" 
-                type="number"
-                min="1920"
-                max="2020"
+                type="text"               
                 class="register__popup__box__date__units__year" 
             />
           </div>
         </label>    
       </div>
-      <div class="hint-error">{{ permitAge$ | async }}</div>  
+      <div class="hint-error">{{ minAge$ | async }}</div>  
       <button
           type="submit"
           [disabled]="buttonDisabled$ | async"
