@@ -2,72 +2,111 @@
   <div class="register__popup">
     <div class="register__popup__left"></div>
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit($event)" class="register__popup__box">
-    <h2>Your account</h2>
-    <h3>Provide personal information so that we can create a new account for you.</h3>
-    <div class="register__popup__box__nameuser">
-      <label>
-        <div class="register__popup__box__nameuser__label">Your Name</div>
-        <input
-            type="text"
-            formControlName="nameUser"
-            [ngClass]="{'name-error': formGroup.controls.nameUser.invalid && formGroup.controls.nameUser.dirty}"
-            class="register__popup__box__nameuser__name"
-        />
-      </label>
-      <div class="hint-error">{{ nameMessage$ | async }}</div>
-    </div>
-    <div class="register__popup__box__mobile">
-      <label>
-        <div class="register__popup__box__mobile__label">Mobile</div>
-        <select
-            formControlName="prefixes"
-        >
-          <option *ngFor="let prefix of prefixes" [ngValue]="prefix">
-            {{ prefix.code }}
-          </option>        
-        </select>
-         
-      </label>  
-      <label>
-        <input
-            type="text"
-            formControlName="phoneUser"
-            [ngClass]="{'name-error': formGroup.controls.phoneUser.invalid && formGroup.controls.phoneUser.dirty}"
-            class="register__popup__box__mobile__phone"
-            mask="000 000 000"          
-        />
-      </label> 
-      <div class="hint-error">
-        <div class="">{{ prefixMessage$ | async }} </div>
-        <div class="hint-error-phone">{{ phoneMessage$ | async }} </div>
-      </div> 
-    </div>
-    <div>
-      <label>
-        <span>Can you play chess?</span>
-        <input 
-            type="radio" 
-            value="Yes" 
-            formControlName="chessUser"
-        />Yes
-        <input 
-            type="radio" 
-            value="No" 
-            formControlName="chessUser"
-        />No
-      </label>
-      <div>{{ chessMessage$ | async }}</div>
-    </div>
-    <div formGroupName="authForm">
-      <input formControlName="day" maxlength="2" placeholder="DD" type="text" />
-      <input formControlName="month" maxlength="2" placeholder="MM" type="text" />
-      <input formControlName="year" maxlength="4" placeholder="YYYY" type="text" />    
-    </div>
-    <div>{{ minAge$ | async }}</div>  
-    <button
-        type="submit"
-        [disabled]="buttonDisabled$ | async"
-    >Continue</button>
+      <h2>Your account</h2>
+      <h3>Provide personal information so that we can create a new account for you.</h3>
+      <div class="register__popup__box__nameuser">
+        <label>
+          <div class="register__popup__box__nameuser__label">Your Name</div>
+          <input
+              type="text"
+              formControlName="nameUser"
+              [ngClass]="{'name-error': formGroup.controls.nameUser.invalid && formGroup.controls.nameUser.dirty}"
+              class="register__popup__box__nameuser__name"
+          />
+        </label>
+        <div class="hint-error">{{ nameMessage$ | async }}</div>
+      </div>
+      <div class="register__popup__box__mobile">
+        <label>
+          <div class="register__popup__box__mobile__label">Mobile</div>
+          <select
+              formControlName="prefixes"
+          >
+            <option *ngFor="let prefix of prefixes" [ngValue]="prefix">
+              {{ prefix.code }}
+            </option>        
+          </select>
+          
+        </label>  
+        <label>
+          <input
+              type="text"
+              formControlName="phoneUser"
+              [ngClass]="{'name-error': formGroup.controls.phoneUser.invalid && formGroup.controls.phoneUser.dirty}"
+              class="register__popup__box__mobile__phone"
+              mask="000 000 000"          
+          />
+        </label> 
+        <div class="hint-error">
+          <div class="">{{ prefixMessage$ | async }} </div>
+          <div class="hint-error-phone">{{ phoneMessage$ | async }} </div>
+        </div> 
+      </div>
+      <div class="register__popup__box__chess">
+        <label>
+          <div class="register__popup__box__chess__label">Can you play chess?</div>
+          <div class="register__popup__box__chess__choice">          
+            <input 
+                type="radio" 
+                value="Yes" 
+                formControlName="chessUser"
+                class="register__popup__box__chess__choice__yes"
+            />          
+            <input 
+                type="radio" 
+                value="No" 
+                formControlName="chessUser"
+                class="register__popup__box__chess__choice__no"
+            />          
+          </div>
+        </label>
+        <div class="hint-error">{{ chessMessage$ | async }}</div>
+      </div>
+      <div formGroupName="authForm" class="register__popup__box__date">
+        <label>
+          <div class="register__popup__box__date__label">Date of birth</div>
+          <div class="register__popup__box__date__units">
+            <input 
+                formControlName="day" 
+                maxlength="2" 
+                placeholder="DD" 
+                type="number"
+                class="register__popup__box__date__units__day" 
+            />
+            <div class="register__popup__box__date__units__pause"></div>
+            <input 
+                formControlName="month" 
+                maxlength="2" 
+                placeholder="MM" 
+                type="number"
+                class="register__popup__box__date__units__month" 
+            />
+            <div class="register__popup__box__date__units__pause"></div>
+            <input 
+                formControlName="year" 
+                maxlength="4" 
+                placeholder="YYYY" 
+                type="number"
+                min="1920"
+                max="2020"
+                class="register__popup__box__date__units__year" 
+            />
+          </div>
+        </label>    
+      </div>
+      <div class="hint-error">{{ permitAge$ | async }}</div>  
+      <button
+          type="submit"
+          [disabled]="buttonDisabled$ | async"
+      >
+        <span class="submit-text">Continue</span>
+        <span class="submit-arrow"></span>
+      </button>      
     </form>
+    <div class="register__popup__steps">
+      <div class="register__popup__steps__step">01</div>
+      <div class="register__popup__steps__step active-step">02<br>Personal</div>
+      <div class="register__popup__steps__step">03</div>
+    </div>
   </div>
 </div>

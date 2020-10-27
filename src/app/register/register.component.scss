@@ -17,6 +17,7 @@ body {
   position: relative; 
   z-index: 1; 
   font-family: Roboto, Helvetica, Arial, sans-serif;
+  overflow: hidden;
 
   &:before {
     /* gredient */
@@ -40,16 +41,44 @@ body {
     display: flex;
     background: #242424;
 
+    @media screen and (max-width: 992px){
+      width: 290px;
+      height: 515px;
+    }
+    &__steps {
+      position: absolute;
+      right: -25px;
+      top: 110px;
+      width: 25px;
+
+      &__step {
+        height: 110px;
+        border-top: 2px solid #F9F9FB;
+        font-size: 11px;
+        color: #fff;
+        padding-left: 10px;
+        padding-top: 7px;
+      }
+
+      .active-step {
+        border-color: #1BFEC0;
+      }
+    }
+
     &__left {
       background-image: url('../../assets/lines.png');
       position: relative;
       width: 256px;
-      height: 100%;      
+      height: 100%;
+      
+      @media screen and (max-width: 992px){
+        display: none;
+      }
 
       &:before {
         content: '';
         position: absolute;
-        left: 0;
+        left: 10px;
         top: 0;
         background-image: url('../../assets/lines.svg');
         height: 100%;
@@ -64,13 +93,26 @@ body {
       padding: 42px 50px;
       flex: 1;
 
+      @media screen and (max-width: 992px){
+        padding: 10px;
+        width: 270px;
+      }
+
       h2 {
         position: absolute;
-        top: -80px;
+        top: -70px;
         left: 30px;
         font-size: 48px;
         color: #fff;
         font-weight: 300;
+
+        @media screen and (max-width: 992px){
+          font-size: 36px;
+          margin-left: auto;
+          margin-right: auto;
+          left: 30px;
+          right: 0;
+        }
       }
 
       h3 {
@@ -80,10 +122,15 @@ body {
         color: #202020;
         padding-right: 60px;
         margin-bottom: 40px;
+
+        @media screen and (max-width: 992px){
+          padding-right: 0px;   
+          margin-bottom: 10px;       
+        }
       }
 
       &__nameuser {
-        margin-bottom: 15px;
+        margin-bottom: 25px;
         overflow: hidden;
 
         &__label {
@@ -100,12 +147,16 @@ body {
           margin-right:15px; 
           font-size: 16px;
           line-height: 28px;
-          color: #202020;         
+          color: #202020;  
+          
+          @media screen and (max-width: 992px){
+            width: 250px;
+          }
         }
       }
 
       &__mobile {
-        margin-bottom: 15px;
+        margin-bottom: 25px;
         &__label {
           @include labelStyle;
         }
@@ -141,6 +192,241 @@ body {
           font-size: 16px;
           line-height: 28px;
           color: #202020; 
+
+          @media screen and (max-width: 992px){
+           width: 120px; 
+           margin-right: 0;           
+          }
+        }
+      }
+
+      &__chess {
+        margin-bottom: 15px;
+
+        &__label {
+          @include labelStyle;
+        }
+
+        &__choice {
+          display: flex;         
+
+          &__yes:before {
+            content: 'Yes';
+            position: absolute;
+            top: 15px;
+            left: 10px;
+            color: #333;
+            font-size: 16px;
+          }
+
+          &__no:before {
+            content: 'No';
+            position: absolute;
+            top: 15px;
+            left: 10px;
+            color: #333;
+            font-size: 16px;
+          }
+
+          input[type="radio"] {
+            cursor: pointer;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            outline: 0;
+            background: transparent;
+            height: 52px;
+            width: 52px;
+            border: 2px solid #dadaed;
+            color: #fff;
+            box-sizing: border-box;            
+            background: #f2f2f5;
+            position: relative;
+            margin-right: 15px;
+          }            
+            
+          input[type="radio"]:checked {            
+            background: transparent;
+            border: 2px solid #1BFEC0;
+          }            
+          
+          input[type="checkbox"]:hover {
+            filter: brightness(90%);
+          }
+          
+          input[type="checkbox"]:disabled {
+            background: #e6e6e6;
+            opacity: 0.6;
+            pointer-events: none;
+          }
+            
+          input[type="radio"]:after {
+            content: "•";            
+            display: block;
+            background: #f2f2f5;
+            border: 2px solid #DADAED;
+            position: absolute;
+            top: 16px;
+            right: -10px;              
+            width: 12px;
+            height: 12px;
+          }
+            
+          input[type="radio"]:checked:after {
+            content: "•";
+            display: block;
+            color: #1bfec0;
+            border: 2px solid #1BFEC0;
+            position: absolute;
+            top: 16px;
+            right: -10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;   
+            width: 12px;
+            height: 12px;                       
+          }
+          
+          input[type="radio"]:disabled:after {
+            border-color: #7b7b7b;
+          }         
+        }
+      }
+
+      &__date {
+        &__label {
+          @include labelStyle;
+        }
+
+        &__units {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          input::-webkit-outer-spin-button,
+          input::-webkit-inner-spin-button {
+              /* display: none; <- Crashes Chrome on hover */
+              -webkit-appearance: none;
+              margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+          }
+
+          input[type=number] {
+              -moz-appearance:textfield; /* Firefox */
+          }
+
+          &__day {
+            width: 35px;
+            height: 50px;
+            border: 2px solid #DADAED;
+            font-size: 16px;
+            color: #202020;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            padding-left: 15px;
+            position: relative;            
+          }
+  
+          &__month {
+            width: 120px;
+            height: 50px;
+            border: 2px solid #DADAED;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            padding-left: 15px;
+            font-size: 16px;
+            color: #202020;
+
+            @media screen and (max-width: 992px){
+              width: 35px;
+            }
+          }
+  
+          &__year {
+            width: 120px;
+            height: 50px;
+            border: 2px solid #DADAED;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            padding-left: 15px;
+            font-size: 16px;
+            color: #202020;
+            @media screen and (max-width: 992px){
+              width: 100px;
+            }
+          }
+
+          &__pause {
+            background-color: #a2a2af;
+            height: 2px;
+            width: 10px;
+            margin: 0 5px;
+
+            @media screen and (max-width: 992px){
+              display: none;
+            }
+          }
+        }        
+      }
+
+      button[type="submit"]{
+        background: linear-gradient(90deg, #8658EB -0.42%, #652AE6 100.42%);
+        box-shadow: 0px 20px 25px rgba(32, 31, 54, 0.15);
+        width: 237px;
+        height: 50px;
+        position: absolute;
+        bottom: -25px;
+        right: -50px;
+        border: 0;
+        display: flex;
+        align-items: center;
+
+        @media screen and (max-width: 992px){
+          margin-left: auto;
+          margin-right: auto;
+          left: 0;
+          right: 0;
+        }
+
+        &:hover .submit-arrow:after {
+          left: 20px;
+        }
+
+        &:enabled {
+          cursor: pointer;
+        }
+
+        .submit-text {
+          color: #fff;
+          width: 187px;
+          font-size: 12px;
+          text-transform: uppercase;
+          font-weight: 500;
+          letter-spacing: .5px;
+        }
+
+        .submit-arrow {          
+          background: #7841F4;
+          box-shadow: 0px 23px 24px rgba(13, 13, 31, 0.08);
+          width: 50px;
+          height: 50px;
+          position: relative;
+          
+          &:after {
+            content: "";
+            position: absolute;
+            top: 20px;
+            left: 15px;
+            background-image: url('../../assets/arrow.png');
+            width: 17px;
+            height: 10px;
+            transition: all .4s;
+          }
         }
       }
     }

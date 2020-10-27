@@ -55,13 +55,7 @@ export class RegisterComponent implements OnInit {
       month: new FormControl('', [Validators.required, Validators.maxLength(2)]),
       day: new FormControl('', [Validators.required, Validators.maxLength(2)]),
     }),       
-  }); 
-  
-  public minAge$ = this.formGroup.valueChanges.pipe(
-    map((value) => {      
-      const dateBirth = this.formGroup.controls['authForm'].setValidators(this.minimumAge(18));          
-    })
-  )
+  });   
   
   public buttonDisabled$ = this.formGroup.statusChanges.pipe(
     map((status) => status === 'INVALID'),
@@ -114,8 +108,8 @@ export class RegisterComponent implements OnInit {
   )
 
   public chessMessage$ = this.formGroup.valueChanges.pipe(
-    map((value) => {
-      const chessErrors = this.formGroup.controls.chessUser?.errors;
+    map((value) => {   
+      const chessErrors = this.formGroup.controls.chessUser?.errors;      
       if(chessErrors){
         if(chessErrors?.required){
           return "This field is required";
@@ -123,8 +117,29 @@ export class RegisterComponent implements OnInit {
       }
       return '';
     })
-  )  
+  );
 
+  public minAge$ = this.formGroup.valueChanges.pipe(
+    map((value) => {      
+      const dateBirth = this.formGroup.controls['authForm'].setValidators(this.minimumAge(18));      
+    })
+  );
+
+  public permitAge$ = this.formGroup.valueChanges.pipe(
+    map((value) => {
+      const dateErrors = this.formGroup.controls['authForm']['day']?.errors;      
+      if(dateErrors){
+        if(dateErrors?.required){
+          return "This field is required";
+        }
+        if(dateErrors?.minimumAge){
+          return "You have to over 18 years old";
+        }
+      }          
+      return '';
+    })
+  )
+  
   constructor(){} 
 
   public ngOnInit(): void {
@@ -132,8 +147,10 @@ export class RegisterComponent implements OnInit {
     const statusChanges$ = this.formGroup.statusChanges;
     
     //statusChanges$.subscribe((status) => {console.log(status)});
-    //valueChanges$.subscribe((value) => {console.log(value)});
+    //valueChanges$.subscribe((value) => {console.log(value)});    
+  
   }
+  
 
   public onSubmit($event){
     if(this.formGroup.valid){
