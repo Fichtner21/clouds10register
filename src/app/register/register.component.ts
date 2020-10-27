@@ -44,14 +44,14 @@ export class RegisterComponent implements OnInit {
   }
 
   public formGroup = new FormGroup({
-    nameUser: new FormControl('aaa', [Validators.required, Validators.minLength(3)]),
+    nameUser: new FormControl('', [Validators.required, Validators.minLength(3)]),
     prefixes: new FormControl('', [Validators.required]), 
-    phoneUser: new FormControl('123123123', [Validators.minLength(9), Validators.maxLength(9), Validators.required]), 
-    chessUser: new FormControl('Yes',[Validators.required]), 
+    phoneUser: new FormControl('', [Validators.minLength(9), Validators.maxLength(9), Validators.required]), 
+    chessUser: new FormControl('',[Validators.required]), 
     authForm: new FormGroup({
-      year: new FormControl('2000',[Validators.required, Validators.maxLength(4), Validators.minLength(4)]),
-      month: new FormControl('12', [Validators.required, Validators.maxLength(2)]),
-      day: new FormControl('12', [Validators.required, Validators.maxLength(2)]),
+      year: new FormControl('',[Validators.required, Validators.maxLength(4), Validators.minLength(4)]),
+      month: new FormControl('', [Validators.required, Validators.maxLength(2)]),
+      day: new FormControl('', [Validators.required, Validators.maxLength(2)]),
     }),       
   });   
   
